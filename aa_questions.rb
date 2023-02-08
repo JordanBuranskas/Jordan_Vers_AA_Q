@@ -30,18 +30,34 @@ end
 
 class Question
 
-    def find_by_id
+
+    def self.find_by_id(question_id)
         
-        data = QuestionsDBConnection.instance.execute(
+        question_data = QuestionsDBConnection.instance.execute(<<-SQL, question_id)
             SELECT 
                 *
-            FROM
+            FROM 
                 questions
-        )
+            WHERE 
+                id = ?;
+        
+        SQL
+
+        return Question.new(question_data[0])
 
 
     end
 
+    attr_accessor :id, :title, :body, :author_id 
+
+    def initialize(info_hash)
+
+        @id = info_hash['id']
+        @title = info_hash['title']
+        @body = info_hash['body']
+        @author_id = info_hash['author_id']
+
+    end 
 
 end
 
