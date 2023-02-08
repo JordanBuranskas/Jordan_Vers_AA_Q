@@ -20,12 +20,28 @@ end
 # attr_accessor for all classes~
 class User
 
-    
+    def initialize
+
+    end
+
 
 end
 
 
 class Question
+
+    def find_by_id
+        
+        data = QuestionsDBConnection.instance.execute(
+            SELECT 
+                *
+            FROM
+                questions
+        )
+
+
+    end
+
 
 end
 
